@@ -1,0 +1,12 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <meta id="csrfHeaderName" th:value="${_csrf.headerName}"/>
+    <meta id="csrfToken" th:value="${_csrf.token}"/>
+    <meta id="csrfTokenName" th:value="${_csrf.parameterName}"/>
+
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+</head>

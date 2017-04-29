@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  >
+<header  th:fragment="menu">
+    <br/>
+
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <!--<div class="container">-->
+        <button class="navbar-toggler hidden-lg" type="button" data-toggle="collapse"
+                data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <a class="navbar-brand" href="/">Home</a>
+            <form class="form-inline mt-2 mt-md-0" id="searchBoxForm" style="display: none;">
+                <input id="searchBox" class="form-control mr-sm-2" placeholder="Search" type="text"/>
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li id="time" class="nav-item nav-link"></li>
+                </ul>
+
+                <ul class="navbar-nav" id="provider"
+                    th:attr="auth=${#authorization.expression('isAuthenticated()')}, admin=${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" id="AdminDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{/tasks/}">Tasks</a>
+                        </div>
+                    </li>
+                    <th:block sec:authorize="isAuthenticated()">
+
+                        <li id="dropdown-car-menu" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                My Car: <span id="selectedCar" class="selection"></span>
+                            </a>
+                            <div class="dropdown-menu" role="menu">
+                                <!--<a  th:each="car : ${userCars}" class="dropdown-item" th:href="|/cars/${car.id}|" th:text="${car.model}">Passat</a>-->
+
+                                <div class="dropdown-divider"></div>
+                                <a id="addCarButton" class="dropdown-item" href="/cars/add">Add Car</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a th:href="@{/ranking}" class="nav-link">Ranking</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a th:href="@{/logout}" class="nav-link" id="btn-logout">
+                                Logout
+                            </a>
+                        </li>
+                    </th:block>
+                    <th:block sec:authorize="isAnonymous()">
+                        <li class="nav-item" sec:authorize="isAnonymous()">
+                            <a id="btn-register" class="nav-link" href="/register">
+                                Register
+                            </a>
+                        </li>
+                        <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a id="btn-login" class="nav-link" href="/login">Log In</a>
+                        </li>
+                    </th:block>
+
+                </ul>
+            </div>
+
+        </div>
+        <!--</div>-->
+
+    </nav>
+</header>
