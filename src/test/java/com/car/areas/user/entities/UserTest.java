@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -13,6 +15,8 @@ import static org.mockito.Mockito.when;
  * 03/05/2017
  */
 @RunWith(SpringRunner.class)
+@DataJpaTest
+@AutoConfigureTestDatabase
 public class UserTest {
 
     public static final String EXPECTED_ROLE_NAME = "ROLE_USER";
