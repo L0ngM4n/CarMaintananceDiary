@@ -1,5 +1,10 @@
 package com.car.areas.cars.models.viewModels;
 
+import com.car.areas.repairs.models.viewModels.RepairViewModel;
+
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 21/04/2017
  */
@@ -14,6 +19,12 @@ public class CarViewModel {
     private int year;
 
     private long userId;
+
+    private Set<RepairViewModel> repairs;
+
+    public CarViewModel() {
+        this.setRepairs(new HashSet<>());
+    }
 
     public String getMake() {
         return make;
@@ -53,5 +64,13 @@ public class CarViewModel {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public Set<RepairViewModel> getRepairs() {
+        return repairs;
+    }
+
+    public void setRepairs(Set<RepairViewModel> repairs) {
+        this.repairs = repairs;
     }
 }

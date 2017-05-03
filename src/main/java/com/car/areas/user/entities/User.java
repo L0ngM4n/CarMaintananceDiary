@@ -1,7 +1,7 @@
 package com.car.areas.user.entities;
 
-import com.car.areas.categories.entities.Category;
 import com.car.areas.cars.entities.Car;
+import com.car.areas.garages.entities.Garage;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -46,16 +46,13 @@ public abstract class User implements UserDetails {
     @OneToMany(mappedBy = "user", targetEntity = Car.class)
     private Set<Car> cars;
 
-    @ManyToMany
-    @JoinTable(name = "users_categories"
-            , joinColumns = @JoinColumn(name = "user_id")
-            , inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    @OneToMany(mappedBy = "user")
+    private Set<Garage> garages;
 
     public User() {
         this.authorities = new HashSet<>();
         this.cars = new HashSet<>();
-        this.categories = new HashSet<>();
+        this.garages = new HashSet<>();
     }
 
     @Override
@@ -150,11 +147,15 @@ public abstract class User implements UserDetails {
         this.cars = carModels;
     }
 
-    public Set<Category> getCategories() {
-        return categories;
+    public Set<Garage> getGarages() {
+        return garages;
     }
 
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
+    public void setGarages(Set<Garage> garages) {
+        this.garages = garages;
+    }
+
+    public void addGarage(Garage garage) {
+        this.garages.add(garage);
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-
+<html lang="en">
 <head th:replace="~{fragments/head}"></head>
 
 <body>
@@ -10,34 +10,26 @@
     <div class="container-fluid">
         <div class="row" id="categoriesBar">
             <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
-                <ul id="categoriesUnorderedList" class="nav nav-pills flex-column red">
-                    <li class="nav-item" style="display: none">
-                        <a class="nav-link" href="#">Category One <span class="sr-only">(current)</span></a>
+                <ul id="categoriesUnorderedList" class="nav nav-pills flex-column red" style="display: none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Repairs</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Service Intervals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Other payments</a>
+                    </li>
                 </ul>
-
-                <div id="addCategoryElement" sec:authorize="authenticated">
-                    <a id="addCategoryButton" href="#" class="nav-item">
-                        + Add Category
-                    </a>
-                    <div id="addCategoryInput" style="display: none">
-                        <div class="row">
-                            <input id="newCategoryName" class="col-sm-10 m-2" placeholder="New Category"/>
-                            <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                        </div>
-                    </div>
-                    <br/>
-                </div>
 
             </nav>
         </div>
         <div th:id="viewId" class="view" th:insert="~{${view}}">
 
         </div>
-        <!--<div th:id="viewId" th:class="view" th:replace="~{${view}}">-->
-
-        <!--</div>-->
     </div>
 </main>
 

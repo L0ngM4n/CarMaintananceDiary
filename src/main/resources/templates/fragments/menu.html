@@ -12,7 +12,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" id="homeId" href="#">Home</a>
             <form class="form-inline mt-2 mt-md-0" id="searchBoxForm" style="display: none;">
                 <input id="searchBox" class="form-control mr-sm-2" placeholder="Search" type="text"/>
                 <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -36,12 +36,30 @@
                     </li>
                     <th:block sec:authorize="isAuthenticated()">
 
+                        <!--<li id="dropdown-car-menu" class="nav-item dropdown">-->
+                            <!--<a class="nav-link dropdown-toggle" data-toggle="dropdown"-->
+                               <!--href="#" role="button" aria-haspopup="true" aria-expanded="false"-->
+                            <!--th:text= "${car} == null ? ${'My Car'} :-->
+                            <!--${car.make +' ' + car.model}">-->
+                                <!--My Car: <span id="selectedCar" class="selection"></span>-->
+                            <!--</a>-->
+                            <!--<div class="dropdown-menu" role="menu">-->
+                                <!--<a  th:each="car : ${userCars}" class="dropdown-item" th:href="|/cars/${car.id}|" th:text="${car.make +' ' + car.model}">Passat</a>-->
+
+                                <!--<div class="dropdown-divider"></div>-->
+                                <!--<a id="addCarButton" class="dropdown-item" href="/cars/add">Add Car</a>-->
+                            <!--</div>-->
+                        <!--</li>-->
+
                         <li id="dropdown-car-menu" class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown"
+                               href="#" role="button" aria-haspopup="true" aria-expanded="false"
+                               th:text= "${#httpSession.getAttribute('activeCar')} == null ? ${'My Car'} :
+                            ${#httpSession.getAttribute('activeCar').make +' ' + #httpSession.getAttribute('activeCar').model}">
                                 My Car: <span id="selectedCar" class="selection"></span>
                             </a>
                             <div class="dropdown-menu" role="menu">
-                                <!--<a  th:each="car : ${userCars}" class="dropdown-item" th:href="|/cars/${car.id}|" th:text="${car.model}">Passat</a>-->
+                                <a  th:each="car : ${userCars}" class="dropdown-item" th:href="|/cars/${car.id}|" th:text="${car.make +' ' + car.model}">Passat</a>
 
                                 <div class="dropdown-divider"></div>
                                 <a id="addCarButton" class="dropdown-item" href="/cars/add">Add Car</a>
@@ -49,7 +67,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a th:href="@{/ranking}" class="nav-link">Ranking</a>
+                            <a th:href="@{/garages}" class="nav-link">Garages</a>
                         </li>
 
                         <li class="nav-item">
