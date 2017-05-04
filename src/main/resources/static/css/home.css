@@ -70,7 +70,7 @@ h1 {
 }
 
 .nav-pills .nav-item.show .nav-link, .nav-pills .nav-link.active{
-    background-color: crimson;
+    background-color: navy;
 }
 
 a{
@@ -78,7 +78,7 @@ a{
 }
 
 a:focus, a:hover {
-    color: crimson;
+    color: #5bc0de;
 }
 
 #viewId {

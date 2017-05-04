@@ -20,12 +20,15 @@ public class Garage {
 
     private String address;
 
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
     private String longitude;
 
     private String latitude;
-
-    @OneToMany(mappedBy = "garage")
-    private List<Repair> repairs;
+//TODO Clean commented code
+//    @OneToMany(mappedBy = "garage")
+//    private List<Repair> repairs;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -71,13 +74,13 @@ public class Garage {
         this.latitude = latitude;
     }
 
-    public List<Repair> getRepairs() {
-        return repairs;
-    }
-
-    public void setRepairs(List<Repair> repairs) {
-        this.repairs = repairs;
-    }
+//    public List<Repair> getRepairs() {
+//        return repairs;
+//    }
+//
+//    public void setRepairs(List<Repair> repairs) {
+//        this.repairs = repairs;
+//    }
 
     public User getUser() {
         return user;
@@ -85,5 +88,13 @@ public class Garage {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

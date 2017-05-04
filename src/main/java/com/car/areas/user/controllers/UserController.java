@@ -1,11 +1,9 @@
 package com.car.areas.user.controllers;
 
-import com.car.areas.user.entities.User;
 import com.car.areas.user.models.bindingModels.RegistrationModel;
 import com.car.areas.user.models.viewModels.UserViewModel;
 import com.car.areas.user.services.BasicUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -33,15 +30,6 @@ public class UserController {
             model.addAttribute("error", "Invalid Credentials");
         }
         return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(HttpSession httpSession){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        long userId = ((User) principal).getId();
-        httpSession.setAttribute("userId", userId);
-
-        return "redirect:/";
     }
 
 

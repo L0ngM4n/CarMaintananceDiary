@@ -1,14 +1,14 @@
-package com.car.areas.garages.models.bindinngModels;
+package com.car.areas.garages.models;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.io.Serializable;
-
 /**
- * 30/04/2017
+ * 04/05/2017
  */
-public class GarageCreateModel implements Serializable{
+public class GarageEditModel {
+
+    private long id;
 
     @NotEmpty
     @Length(min = 1)
@@ -25,7 +25,7 @@ public class GarageCreateModel implements Serializable{
 
     private String description;
 
-    public GarageCreateModel() {
+    public GarageEditModel() {
     }
 
     public String getName() {
@@ -66,5 +66,13 @@ public class GarageCreateModel implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

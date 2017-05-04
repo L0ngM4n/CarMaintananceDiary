@@ -13,7 +13,9 @@
             <th>Garage</th>
             <th>Description</th>
             <th>Parts Price</th>
-            <th>Price</th>
+            <th>Total Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -21,10 +23,12 @@
             <th scope="row" ><a th:href="|/repairs/${repair.id}|" th:text="${repair.id}"></a></th>
             <td ><a th:href="|/repairs/${repair.id}|" th:text="${repair.date}"></a></td>
             <!--TODO add link to garage view-->
-            <td><a href="/garage/id" th:text="${repair.garage}"></a></td>
-            <td th:text="${repair.title}">Oil and filteres maintanace</td>
-            <td th:text="${repair.getPartsPrice()}">Parts Price</td>
-            <td th:text="${repair.labourPrice}">245</td>
+            <td th:text="${repair.garage.name}"></td>
+            <td><a th:href="|/repairs/${repair.id}|"  th:text="${repair.title}"></a></td>
+            <td th:text="${repair.getPartsPrice()}"></td>
+            <td th:text="${repair.getTotalPrice()}"></td>
+            <td><a th:href="|/repairs/edit/${repair.id}|" th:text="Edit"></a></td>
+            <td><a href="#" th:text="Delete"></a></td>
         </tr>
 
         </tbody>

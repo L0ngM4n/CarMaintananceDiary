@@ -1,7 +1,7 @@
 type = "text/javascript";
 
 $(function () {
-        showHidePartForm();
+    showHidePartForm();
 });
 
 function showHidePartForm() {
@@ -15,6 +15,23 @@ function showHidePartForm() {
         $('#addButton').show();
     })
 }
+$(document).ready(function () {
+    $(".part-delete").click(function () {
+        let data = {};
+        let tokenName = $("#csrfTokenName").attr("value");
+        data[tokenName] = $("#csrfToken").attr("value");
+        data['partId'] = this.id;
+        $.ajax({
+            url: '/repairs/part/delete/',
+            type: 'POST',
+            data: data,
+            success: function (result) {
+                // Do something with the result
+                $(this).parent().parent().remove();
+            }
+        });
+    });
+});
 
 
 //Everything down is not used
@@ -34,7 +51,7 @@ function savePart() {
         data: data,
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded',
-        success:  function (part) {
+        success: function (part) {
             addPartToDOM(part);
         }
     });
@@ -70,7 +87,7 @@ function hideAddPartInputs() {
 
 
 //Create Part DOM
-function    loadDOMCategories(parts) {
+function loadDOMCategories(parts) {
     $('#categoriesUnorderedList').empty();
     $.each(parts, function (i, part) {
         var partName = part.name;

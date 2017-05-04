@@ -11,17 +11,26 @@ $(function () {
     if ((pathname.match(/car/g)) || (pathname.match(/repair/g)) || (pathname.match(/garages/g))) {
         $('#categoriesUnorderedList').show();
     }
+    garageCategorySwitchActive();
 });
 
 function changeActiveCategory() {
 
-    $('#categoriesUnorderedList li').on('click','a', function () {
+    $('#categoriesUnorderedList li').on('click', 'a', function () {
         $(this).parent().parent().find('.active').removeClass('active');
         $(this).addClass('active');
     });
 
 }
 
+function garageCategorySwitchActive () {
+    if (pathname.match(/garages/g)) {
+        $('#glist').addClass('active');
+
+    } else if (pathname.match('/garages/add'/g)) {
+        $('#gadd').addClass('active');
+    }
+};
 
 // Format date number to date not used for now
 function formatDate(dateInNumber) {

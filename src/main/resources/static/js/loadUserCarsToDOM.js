@@ -1,6 +1,6 @@
 type = "text/javascript";
 $(function () {
-
+    loadCarsJsonData();
 });
 
 function loadCarsJsonData() {
@@ -14,7 +14,7 @@ function loadCarsJsonData() {
 
 function addUserCarsToDOM(data) {
     let dropDownMenu = $('#dropdown-car-menu').find('.dropdown-menu');
-
+    dropDownMenu.find('.dropdown-divider').prevAll('a').remove();
     $.each(JSON.parse(data), function (i, car) {
         let item = ($('<a></a>'));
         item.addClass('dropdown-item');
@@ -30,6 +30,7 @@ function addUserCarsToDOM(data) {
             $.removeCookie("activeCar");
             $.cookie("activeCar", selection.text());
 
+
             if (selection.text() !== "Add Car") {
 
                 console.log(car.id);
@@ -43,7 +44,7 @@ function addUserCarsToDOM(data) {
                     url: '/cars/active',
                     data: data
                 });
-                window.location.replace("/cars/" + car.id)
+                window.location.replace("/cars/" + car.id + "/repairs")
             }
         });
     });

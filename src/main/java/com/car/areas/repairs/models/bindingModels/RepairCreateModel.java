@@ -1,6 +1,8 @@
 package com.car.areas.repairs.models.bindingModels;
 
 import com.car.areas.repairs.entities.enums.RepairType;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -15,6 +17,8 @@ public class RepairCreateModel {
 
     private long id;
 
+    @NotEmpty
+    @Length(min = 5, message = "Enter repair title")
     private String title;
 
     private String description;

@@ -1,0 +1,112 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+      <!--xmlns:th="http://www.thymeleaf.org"-->
+      <!--xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+
+<div th:fragment="car-repairs">
+
+
+    <div th:fragment="add-new-repair">
+        <form method="post" id="addRepairForm" th:fragment="add-form" th:object="${repair}">
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('title')}? 'has-danger'">
+                <label for="titleId">Title</label>
+                <input type="text" class="form-control" id="titleId" aria-describedby="descriptionHelp" name="title"
+                       th:field="*{title}" th:value="*{title}"/>
+                <small id="titleHelp" class="form-control-feedback" th:each="error : ${#fields.errors('title')}"
+                       th:text="${error}">Error Message
+                </small>
+            </div>
+
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('garage')}? 'has-danger'">
+                <label for="gar">Garage</label>
+                <select class="form-control" id="gar" name="garage" aria-describedby="garHelp">
+                    <option th:each="garage : ${garages}"
+                            th:value="${garage.name}" th:text="${garage.name}">
+                        Option 1
+                    </option>
+                </select>
+                <small id="garHelp" class="form-control-feedback" th:each="error : ${#fields.errors('garage')}"
+                       th:text="${error}">Error Message
+                </small>
+
+
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleSelect1">Repair type</label>
+                <select class="form-control" id="exampleSelect1" name="repairType" th:field="${repairViewModel.repairType}" th:selected="*{repairType}">
+                    <option th:each="repairType : ${T(com.car.areas.repairs.entities.enums.RepairType).values()}"
+                            th:value="${repairType}" th:text="${#strings.capitalize(#strings.toLowerCase(repairType))}">
+                        Option 1
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('date')}? 'has-danger'">
+                <label for="doneId">Date</label>
+                <input type="date" class="form-control" id="doneId" aria-describedby="doneHelp" name="date"
+                       th:field="*{date}" th:value="*{date}"/>
+                <small id="doneHelp" class="form-control-feedback" th:each="error : ${#fields.errors('date')}"
+                       th:text="|Invalid Date|">Error Message
+                </small>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('labourPrice')}? 'has-danger'">
+                <label for="labourId">Labour Price</label>
+                <input type="text" class="form-control" id="labourId" aria-describedby="labourHelp" name="labour"
+                       th:field="*{labourPrice}" th:value="*{labourPrice}"/>
+                <small id="labourHelp" class="form-control-feedback" th:each="error : ${#fields.errors('labourPrice')}"
+                       th:text="|Invalid Price|">Error Message
+                </small>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-danger'">
+                <label for="descriptionId">Description</label>
+                <div>
+                <textarea form="addRepairForm" type="text" class="form-control" id="descriptionId" aria-describedby="descriptionHelp"
+                          name="description" th:field="*{description}" th:value="*{description}"></textarea>
+                </div>
+                <small id="descriptionHelp" class="form-control-feedback" th:each="error : ${#fields.errors('description')}"
+                       th:text="${error}">Error Message
+                </small>
+            </div>
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-secondary">Edit Repair</button>
+        </form>
+    </div>
+<!--==========================================================================================================================================================-->
+
+    <br/>
+    <label for="parts-table"><strong>Parts</strong></label>
+    <table class="table table-striped" id="parts-table"  th:object="${repairCreateModel}">
+
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Supplier</th>
+            <th>Brand</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="part : ${parts}">
+            <th scope="row" th:text="${part.id}">1</th>
+            <td th:text="${part.name}">Remuk</td>
+            <td th:text="${part.supplier}">Tech Co</td>
+            <td th:text="${part.brand}">Tech Co</td>
+            <td th:text="${part.price}">24</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+
+</div>
+
+

@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+      <!--xmlns:th="http://www.thymeleaf.org"-->
+      <!--xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
 
 <div th:fragment="car-repairs">
 
@@ -19,12 +19,21 @@
     </div>
 
     <div>
-        <span>Garage: <a th:text="${repair.garage}" th:href="|/garage/${repair.garage}|"></a>Mishos Garage</span>
+        <span>Garage: <a th:text="${repair.garage.name}" th:href="|/garage/${repair.garage.id}|"></a></span>
     </div>
     <div>
-        <span>Price: </span>
+        <span>Labour price: </span>
         <span th:text="${repair.labourPrice}"></span>
     </div>
+    <div>
+        <span>Parts price: </span>
+        <span th:text="${repair.getPartsPrice()}"></span>
+    </div>
+    <div>
+        <span><Strong>Total price: </Strong></span>
+        <span><strong th:text="${repair.getTotalPrice()}"></strong></span>
+    </div>
+
 
     <br/>
     <label for="parts-table"><strong>Parts</strong></label>
@@ -37,15 +46,21 @@
             <th>Supplier</th>
             <th>Brand</th>
             <th>Price</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="part : ${repair.parts}">
-            <th scope="row" th:text="${part.id}">1</th>
-            <td th:text="${part.name}">Remuk</td>
-            <td th:text="${part.supplier}">Tech Co</td>
-            <td th:text="${part.brand}">Tech Co</td>
-            <td th:text="${part.price}">24</td>
+            <th class="partId" scope="row" th:text="${part.id}">1</th>
+            <td th:text="${part.name}"></td>
+            <td th:text="${part.supplier}"></td>
+            <td th:text="${part.brand}"></td>
+            <td th:text="${part.price}"></td>
+            <td>
+                <button type="button" th:id="${part.id}"  class="close part-delete" data-dismiss="alert" aria-label="Close" style=float:none>
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </td>
         </tr>
 
         </tbody>
@@ -64,7 +79,7 @@
         </div>
 
         <div class="form-group" th:classappend="${#fields.hasErrors('price')}? 'has-danger'">
-            <label for="price">Labour Price</label>
+            <label for="price">Price</label>
             <input type="number" class="form-control" id="price" aria-describedby="priceHelp" name="price"
                    th:field="*{price}"/>
             <small id="labourHelp" class="form-control-feedback" th:each="error : ${#fields.errors('price')}"
@@ -97,5 +112,6 @@
 
     <button id="addButton" type="submit" class="btn btn-secondary">Add Part</button>
 </div>
+
 
 

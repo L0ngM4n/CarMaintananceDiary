@@ -1,6 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  >
+
 <header  th:fragment="menu">
     <br/>
 
@@ -54,12 +52,13 @@
                         <li id="dropdown-car-menu" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown"
                                href="#" role="button" aria-haspopup="true" aria-expanded="false"
-                               th:text= "${#httpSession.getAttribute('activeCar')} == null ? ${'My Car'} :
+                               th:text= "${#httpSession.getAttribute('activeCar')} == null ? ${'Select Car'} :
                             ${#httpSession.getAttribute('activeCar').make +' ' + #httpSession.getAttribute('activeCar').model}">
                                 My Car: <span id="selectedCar" class="selection"></span>
                             </a>
                             <div class="dropdown-menu" role="menu">
-                                <a  th:each="car : ${userCars}" class="dropdown-item" th:href="|/cars/${car.id}|" th:text="${car.make +' ' + car.model}">Passat</a>
+                                <!--This is commented because car items are loaded asynchronously whit ana ajax call from loadUserCarsToDOM.js-->
+                                <!--<a  th:each="car : ${userCars}" class="dropdown-item" th:href="|/cars/${car.id}|" th:text="${car.make +' ' + car.model}">Passat</a>-->
 
                                 <div class="dropdown-divider"></div>
                                 <a id="addCarButton" class="dropdown-item" href="/cars/add">Add Car</a>

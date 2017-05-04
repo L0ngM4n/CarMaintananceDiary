@@ -10,24 +10,34 @@ var geocoder;
 var markers = [];
 var infowindow;
 function initMap() {
-        infowindow = new google.maps.InfoWindow;
-        geocoder = new google.maps.Geocoder();
-        map = new google.maps.Map(document.getElementById('map'), {
+    infowindow = new google.maps.InfoWindow;
+    geocoder = new google.maps.Geocoder();
+    map = new google.maps.Map(document.getElementById('map'), {
         center: center,
         zoom: 15
     });
 
-    map.addListener('click', function(event) {
+    map.addListener('click', function (event) {
         clearMarkers();
         addMarker(event.latLng);
         fillCoordinatesToDOM(event.latLng);
         geocodeLatLng(geocoder, map, event.latLng);
     });
 
+
+    var garageLatitude = parseFloat($('#latitude').val());
+    var garageLongitude = parseFloat($('#longitude').val());
+    if (!isNaN(garageLatitude) && !isNaN(garageLongitude)) {
+        var latLng = {
+            lat: garageLatitude,
+            lng: garageLongitude
+        };
+        addMarker(latLng);
+    }
     // Adds a marker to the map and push to the array.
     function addMarker(location) {
         var infowindow = new google.maps.InfoWindow({
-           content: "Drag me"
+            content: "Drag me"
         });
         var marker = new google.maps.Marker({
             position: location,
@@ -36,14 +46,18 @@ function initMap() {
             map: map
         });
 
-        setTimeout(function(){ marker.setAnimation(null); }, 550);
+        setTimeout(function () {
+            marker.setAnimation(null);
+        }, 550);
         markers.push(marker);
-        google.maps.event.addListener(marker, 'dragend', function(evt) {
+        google.maps.event.addListener(marker, 'dragend', function (evt) {
             document.getElementById('latitude').value = this.getPosition().lat();
             document.getElementById('longitude').value = this.getPosition().lng();
             geocodeLatLng(geocoder, map, this.getPosition());
         });
         infowindow.open(map, marker);
+        var latLng = marker.getPosition(); // returns LatLng object
+        map.setCenter(latLng)
     }
 
     // Sets the map on all markers in the array.
@@ -68,6 +82,7 @@ function initMap() {
         clearMarkers();
         markers = [];
     }
+
     // Create the DIV to hold the control and call the CenterControl()
     // constructor passing in this DIV.
     var centerControlDiv = document.createElement('div');
@@ -78,12 +93,13 @@ function initMap() {
 
 }
 
+
 function geocodeLatLng(geocoder, map, latlng) {
     // var input = document.getElementById('latlng').value;
     // var latlngStr = input.split(',', 2);
     // var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
 
-    geocoder.geocode({'location': latlng}, function(results, status) {
+    geocoder.geocode({'location': latlng}, function (results, status) {
         if (status === 'OK') {
             if (results[1]) {
 
@@ -103,7 +119,7 @@ function geocodeLatLng(geocoder, map, latlng) {
  * */
 function geocodeAddress() {
     var address = document.getElementById('address').value;
-    geocoder.geocode( { 'address': address}, function(results, status) {
+    geocoder.geocode({'address': address}, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
 
@@ -130,7 +146,7 @@ function geolocate() {
 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.getCurrentPosition(function (position) {
             var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
@@ -140,7 +156,7 @@ function geolocate() {
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
-        }, function() {
+        }, function () {
             handleLocationError(true, infoWindow, map.getCenter());
         });
     } else {
@@ -156,7 +172,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
 }
-
 
 
 /**
@@ -192,7 +207,7 @@ function CenterControl(controlDiv, map) {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: simply set the map to Chicago.
-    controlUI.addEventListener('click', function() {
+    controlUI.addEventListener('click', function () {
         geolocate();
     });
 
