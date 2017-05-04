@@ -8,6 +8,9 @@ import com.car.areas.garages.services.GarageService;
 import com.car.areas.user.entities.User;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,9 +45,10 @@ public class GarageController {
 
 
     @GetMapping("")
-    public String garage(Model model, HttpSession httpSession, @ModelAttribute GarageCreateModel garageCreateModel) {
+    public String garage(Model model, HttpSession httpSession, @ModelAttribute GarageCreateModel garageCreateModel,@PageableDefault(size = 3) Pageable pageable) {
         addUserIdToSession(httpSession, (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        List<GarageViewModel> garages = this.garageService.getAllByUserId((Long) httpSession.getAttribute("userId"));
+//        List<GarageViewModel> garages = this.garageService.getAllByUserId((Long) httpSession.getAttribute("userId"));
+        Page<GarageViewModel> garages = this.garageService.getAllByUserId(pageable, (Long) httpSession.getAttribute("userId"));
 
         model.addAttribute("title", "Garages List");
         model.addAttribute("view", "/fragments/garages-list");

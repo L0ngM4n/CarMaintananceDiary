@@ -11,6 +11,9 @@ import com.car.areas.user.repositories.BasicUserRepository;
 import com.car.exceptions.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,6 +42,20 @@ public class GarageServiceImpl implements GarageService {
         for (Garage garage : garages) {
             garageViewModels.add(this.modelMapper.map(garage, GarageViewModel.class));
         }
+
+        return garageViewModels;
+    }
+
+    @Override
+    public Page<GarageViewModel> getAllByUserId(Pageable pageable, long userId) {
+
+        Page<Garage> garages = this.garageRepository.getAllByUserId(pageable, userId);
+        List<GarageViewModel> garageViewModelsList = new ArrayList<>();
+        for (Garage garage : garages) {
+            GarageViewModel garageViewModel = this.modelMapper.map(garage, GarageViewModel.class);
+            garageViewModelsList.add(garageViewModel);
+        }
+        Page<GarageViewModel> garageViewModels = new PageImpl<>(garageViewModelsList, pageable, garages.getTotalElements());
 
         return garageViewModels;
     }
@@ -73,6 +90,7 @@ public class GarageServiceImpl implements GarageService {
         if (garage == null){
             throw new EntityNotFoundException();
         }
+        garage.setName(garageModel.getName());
         garage.setAddress(garageModel.getAddress());
         garage.setDescription(garageModel.getDescription());
         garage.setLatitude(garageModel.getLatitude());

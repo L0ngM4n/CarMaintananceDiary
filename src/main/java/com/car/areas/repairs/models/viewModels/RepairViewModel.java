@@ -1,6 +1,8 @@
 package com.car.areas.repairs.models.viewModels;
 
+import com.car.areas.garages.models.viewModels.GarageViewModel;
 import com.car.areas.repairs.entities.enums.RepairType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -18,8 +20,7 @@ public class RepairViewModel {
 
     private String description;
 
-    private String garage;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     private double labourPrice;
@@ -27,6 +28,8 @@ public class RepairViewModel {
     private RepairType repairType;
 
     private Set<PartViewModel> parts;
+
+    private GarageViewModel garage;
 
     private long carId;
 
@@ -74,11 +77,11 @@ public class RepairViewModel {
         this.description = description;
     }
 
-    public String getGarage() {
+    public GarageViewModel getGarage() {
         return garage;
     }
 
-    public void setGarage(String garage) {
+    public void setGarage(GarageViewModel garage) {
         this.garage = garage;
     }
 
@@ -108,5 +111,9 @@ public class RepairViewModel {
 
     public double getPartsPrice() {
         return this.getParts().stream().map(PartViewModel::getPrice).reduce(0d, (a, b) -> a+ b);
+    }
+
+    public double getTotalPrice() {
+        return this.labourPrice + this.getPartsPrice();
     }
 }

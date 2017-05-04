@@ -9,4 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such car")
 public class CarNotFoundException extends RuntimeException {
 
+    public CarNotFoundException() {
+    }
+
+    public CarNotFoundException(String message) {
+        super(message);
+    }
 }

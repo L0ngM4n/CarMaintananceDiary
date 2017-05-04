@@ -3,7 +3,7 @@ package com.car.areas.cars.services;
 import com.car.areas.cars.models.bindinngModels.CarCreateModel;
 import com.car.areas.cars.models.viewModels.CarViewModel;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * 21/04/2017
@@ -16,14 +16,14 @@ public interface CarService {
 
     CarViewModel getById(long id);
 
-    Set<CarViewModel> getAllCarModels();
+    List<CarViewModel> getAllCarModels();
 
-    Set<String> getAllCarMakers();
+    List<String> getAllCarMakers();
 
-    Set<String> getCarModels(String make);
+    List<String> getCarModels(String make);
 
-    Set<String> getCarModelYears(String make, String carModel);
+    List<String> getCarModelYears(String make, String carModel);
 
-    Set<CarViewModel> getAllCarsByUser(long userId);
+    List<CarViewModel> getAllCarsByUser(long userId);
 
 }

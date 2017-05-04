@@ -16,7 +16,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -51,16 +52,16 @@ public class CarServiceImpl implements CarService {
     public CarViewModel getById(long id) {
         Car car = this.carsRepository.findOne(id);
         if (car == null) {
-            throw new CarNotFoundException();
+            throw new CarNotFoundException("Stop being smart and use the interface");
         }
         CarViewModel carViewModel = this.modelMapper.map(car, CarViewModel.class);
         return carViewModel;
     }
 
     @Override
-    public Set<CarViewModel> getAllCarModels() {
+    public List<CarViewModel> getAllCarModels() {
         Iterable<CarModel> cars = this.carModelsRepository.findAll();
-        Set<CarViewModel> carViewModels = new HashSet<>();
+        List<CarViewModel> carViewModels = new ArrayList<>();
         for (CarModel car : cars) {
             carViewModels.add(this.modelMapper.map(car, CarViewModel.class));
         }
@@ -69,15 +70,15 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Set<String> getAllCarMakers() {
+    public List<String> getAllCarMakers() {
 
         return this.carModelsRepository.getMakers();
     }
 
 
     @Override
-    public Set<String> getCarModels(String make) {
-        Set<String> models = this.carModelsRepository.getAllByMake(make);
+    public List<String> getCarModels(String make) {
+        List<String> models = this.carModelsRepository.getAllByMake(make);
         if (models == null) {
             throw new ModelNotFoundException();
         }
@@ -86,8 +87,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Set<String> getCarModelYears(String make, String carModel) {
-        Set<String> years = this.carModelsRepository.getYearsByMakeAndModel(make, carModel);
+    public List<String> getCarModelYears(String make, String carModel) {
+        List<String> years = this.carModelsRepository.getYearsByMakeAndModel(make, carModel);
         if (years == null) {
             throw new ModelNotFoundException();
         }
@@ -95,13 +96,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Set<CarViewModel> getAllCarsByUser(long userId) {
+    public List<CarViewModel> getAllCarsByUser(long userId) {
         Set<Car> cars = this.carsRepository.getAllByUserId(userId);
         if (cars == null) {
             throw new CarsNotFoundException();
         }
 
-        Set<CarViewModel> carViewModels = new HashSet<>();
+        List<CarViewModel> carViewModels = new ArrayList<>();
 
         for (Car car : cars) {
             carViewModels.add(this.modelMapper.map(car, CarViewModel.class));

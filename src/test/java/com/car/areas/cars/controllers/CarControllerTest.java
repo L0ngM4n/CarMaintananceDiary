@@ -20,8 +20,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
@@ -46,7 +46,7 @@ public static final long CAR_ID = 1;
     private static final String CARS_ID_URL = "/cars/1";
     public static final String CAR_REPAIRS_FRAGMENT = "/fragments/car-repairs";
     private static final long USER_ID = 1;
-    public static final Set<CarViewModel> USER_CARS = new HashSet<>();
+    public static final List<CarViewModel> USER_CARS = new ArrayList<>();
 
     @Autowired
     private MockMvc mvc;

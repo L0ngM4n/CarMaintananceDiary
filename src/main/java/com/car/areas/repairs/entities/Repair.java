@@ -25,7 +25,7 @@ public class Repair {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "garage_id", referencedColumnName = "id")
     private Garage garage;
 

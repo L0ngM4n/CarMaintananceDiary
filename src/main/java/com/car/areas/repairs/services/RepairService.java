@@ -11,7 +11,9 @@ public interface RepairService {
 
     RepairViewModel create(RepairCreateModel repairCreateModel);
 
-    void update(PartCreateModel partCreateModel, long repairId);
+    void addPartToRepair(PartCreateModel partCreateModel, long repairId);
 
     RepairViewModel getById(long id);
+
+    void updateRepairDetails(RepairCreateModel repairCreateModel);
 }

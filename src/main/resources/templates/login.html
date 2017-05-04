@@ -45,7 +45,7 @@
                 <form action="/connect/facebook" method="post" class="d-inline">
                     <input type="hidden" name="scope" value="public_profile, email"/>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <input id="btnFacebook" class="btn btn-outline-secondary" type="submit" value="Facebook"/>
+                    <input id="btnFacebook" class="btn btn-outline-secondary disabled" type="submit" value="Facebook"/>
                 </form>
             </form>
         </div>

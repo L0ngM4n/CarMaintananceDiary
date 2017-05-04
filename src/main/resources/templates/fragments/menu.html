@@ -52,7 +52,7 @@
                         <li id="dropdown-car-menu" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown"
                                href="#" role="button" aria-haspopup="true" aria-expanded="false"
-                               th:text= "${#httpSession.getAttribute('activeCar')} == null ? ${'My Car'} :
+                               th:text= "${#httpSession.getAttribute('activeCar')} == null ? ${'Select Car'} :
                             ${#httpSession.getAttribute('activeCar').make +' ' + #httpSession.getAttribute('activeCar').model}">
                                 My Car: <span id="selectedCar" class="selection"></span>
                             </a>

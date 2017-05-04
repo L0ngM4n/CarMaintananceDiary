@@ -35,4 +35,9 @@ public class PartServiceImpl implements PartService {
         repair.getParts().add(part);
 
     }
+
+    @Override
+    public void delete(long partId) {
+        this.partRepository.delete(partId);
+    }
 }

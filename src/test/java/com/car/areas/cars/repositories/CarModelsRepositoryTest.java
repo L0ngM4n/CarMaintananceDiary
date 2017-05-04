@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Set;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -47,7 +47,7 @@ public class CarModelsRepositoryTest {
     @Test
     public void getMakersAndCheckForUniquenessOfMake() throws Exception {
         //Act
-        Set<String> makers = this.carModelsRepository.getMakers();
+        List<String> makers = this.carModelsRepository.getMakers();
 
         //Assert
         assertEquals(EXPECTED_COUNT, makers.size());

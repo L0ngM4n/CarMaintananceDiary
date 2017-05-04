@@ -1,7 +1,3 @@
-<!DOCTYPE html>
-<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
-      <!--xmlns:th="http://www.thymeleaf.org"-->
-      <!--xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
 
 <div th:fragment="add-new-repair">
     <form method="post" id="addRepairForm" th:fragment="add-form" th:object="${repairCreateModel}">
@@ -18,7 +14,7 @@
 
         <div class="form-group" th:classappend="${#fields.hasErrors('garage')}? 'has-danger'">
             <label for="gar">Garage</label>
-            <select class="form-control" id="gar" name="garage" th:field="*{repairType}" aria-describedby="garHelp">
+            <select class="form-control" id="gar" name="garage" th:field="*{garage}" th:selected="*{garage}" aria-describedby="garHelp">
                 <option th:each="garage : ${garages}"
                         th:value="${garage.name}" th:text="${garage.name}">
                     Option 1

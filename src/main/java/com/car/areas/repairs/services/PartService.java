@@ -8,4 +8,6 @@ import com.car.areas.repairs.models.bindingModels.PartCreateModel;
 public interface PartService {
 
     void save(PartCreateModel partCreateModel, long id);
+
+    void delete(long partId);
 }
