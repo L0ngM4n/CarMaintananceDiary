@@ -1,9 +1,9 @@
 package com.car.areas.cars.entities;
 
+import com.car.areas.repairs.entities.Repair;
 import com.car.areas.user.entities.User;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

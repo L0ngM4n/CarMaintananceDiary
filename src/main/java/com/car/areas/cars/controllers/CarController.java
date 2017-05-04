@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 /**
@@ -27,11 +28,18 @@ public class CarController {
     @Autowired
     private Gson gson;
 
-    @ResponseBody
-    @GetMapping("user")
-    public String getCars(){
+    @ModelAttribute("userCars")
+    public Set<CarViewModel> userCars() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         long userId = ((User) principal).getId();
+        Set<CarViewModel> carViewModels = this.carService.getAllCarsByUser(userId);
+        return carViewModels;
+    }
+
+    @ResponseBody
+    @GetMapping("user")
+    public String getCars(HttpSession httpSession){
+        long userId = (long) httpSession.getAttribute("userId");
         Set<CarViewModel> carViewModels = this.carService.getAllCarsByUser(userId);
         return this.gson.toJson(carViewModels);
     }
@@ -79,4 +87,20 @@ public class CarController {
         return "redirect:/";
     }
 
+    @ResponseBody
+    @PostMapping("active")
+    public void setActiveCar(@RequestParam("carId") Long activeCarId, HttpSession httpSession) {
+
+        httpSession.setAttribute("activeCar", activeCarId);
+    }
+
+    @GetMapping("{id}")
+    public String getCarDetails(@PathVariable("id") long carId, Model model, HttpSession httpSession) {
+        CarViewModel carViewModel = this.carService.getById(carId);
+        httpSession.setAttribute("activeCar", carViewModel);
+        model.addAttribute("car", carViewModel);
+        model.addAttribute("view", "/fragments/car-repairs");
+
+        return "base-layout";
+    }
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta id="csrfHeaderName" th:value="${_csrf.headerName}"/>
+    <meta id="csrfToken" th:value="${_csrf.token}"/>
+    <meta id="csrfTokenName" th:value="${_csrf.parameterName}"/>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+    <link rel="stylesheet" th:href="@{/css/garage-list.css}"/>
+</head>
+
+<body>
+
+<header th:replace="~{fragments/menu}"></header>
+
+<main>
+    <div class="container-fluid">
+        <div class="row" id="categoriesBar">
+            <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+                <ul id="categoriesUnorderedList" class="nav nav-pills flex-column red" style="display: none">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="glist" href="#">Garages list</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="gadd" href="#">Add garage</a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+        <div th:id="viewId" class="view" th:insert="~{${view}}">
+
+        </div>
+    </div>
+</main>
+
+<footer>
+    <script th:src="@{/jquery/jquery.min.js}"></script>
+    <script th:src="@{/jquery/jquery.cookie.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/homeScript.js}"></script>
+    <script th:src="@{/js/loadUserCarsToDOM.js}"></script>
+    <script th:src="@{/js/addCar.js}"></script>
+    <script th:src="@{/js/map.js}"></script>
+    <script th:src="@{/js/garage.js}"></script>
+</footer>
+
+
+</body>
+</html>

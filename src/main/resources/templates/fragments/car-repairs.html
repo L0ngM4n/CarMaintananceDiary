@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="car-repairs">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Garage</th>
+            <th>Description</th>
+            <th>Parts Price</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="repair :  ${car.repairs}">
+            <th scope="row" ><a th:href="|/repairs/${repair.id}|" th:text="${repair.id}"></a></th>
+            <td ><a th:href="|/repairs/${repair.id}|" th:text="${repair.date}"></a></td>
+            <!--TODO add link to garage view-->
+            <td><a href="/garage/id" th:text="${repair.garage}"></a></td>
+            <td th:text="${repair.title}">Oil and filteres maintanace</td>
+            <td th:text="${repair.getPartsPrice()}">Parts Price</td>
+            <td th:text="${repair.labourPrice}">245</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <a href="/repairs/add">Add new repair</a>
+</div>
+
+
