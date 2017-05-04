@@ -29,7 +29,7 @@ public class SocialUserServiceImpl implements SocialUserService {
     @Override
     public void registerOrLogin(User facebookUser) {
         String email = facebookUser.getEmail();
-        SocialUser socialUser = this.socialUserRepository.findOneByUsername(email);
+        SocialUser socialUser = this.socialUserRepository.findOneByUsername(email); //Test to see if method is called
 
         if (socialUser == null) {
             socialUser = this.registerUser(email);
@@ -48,14 +48,14 @@ public class SocialUserServiceImpl implements SocialUserService {
         user.setEnabled(true);
         user.setCreationDate(new Date());
         user.addRole(this.roleService.getDefaultRole());
-        user  = this.socialUserRepository.save(user);
+        this.socialUserRepository.save(user);
 
         return user;
     }
 
     private void loginUser(SocialUser socialUser) {
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(socialUser.getId(),null, socialUser.getAuthorities());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(socialUser,null, socialUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
 

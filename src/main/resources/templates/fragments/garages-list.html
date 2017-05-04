@@ -1,0 +1,105 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+      <!--xmlns:th="http://www.thymeleaf.org"-->
+      <!--xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--Don't forget to comment line below after edit-->
+Comment bootstrap line reminder
+<!--<link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"/>-->
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+        padding-top: 20em;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+</style>
+<!--<script src="https://maps.googleapis.com/maps/api/js"></script>-->
+<!--<script src="/jquery/gmaps.js"></script>-->
+<br/>
+
+
+<!--=================================================================================================================-->
+
+<div class="container" id="g-list-div">
+    <div class="row">
+        <div class="col-md-11 col-md-offset-1">
+
+            <div class="card-group">
+                <th:block th:if="${#lists.size(garages)} > 0" th:each="garage, iter : ${garages}" th:object="${garage}">
+
+                    <th:block th:if="${iter.index} % 3 == 0">
+                        <div class="w-100"></div>
+                    </th:block>
+
+                    <div class="card col-4 thumbnail">
+
+                        <img class="card-image-top img-fluid img-thumbnail"
+                             src="http://placehold.it/250x250">
+
+                        <div class="card-block">
+                            <h4 class="card-title" th:text="*{name}"></h4>
+                            <p class="card-text" th:text="*{address}"></p>
+                            <p class="card-text"><strong>Longitude: </strong> - [[*{longitude}]]</p>
+                            <p class="card-text"><strong>Latitude: </strong> - [[*{latitude}]]</p>
+                        </div>
+
+                        <div class="card-footer">
+
+                            <!-- Trigger the modal with a button -->
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" th:attr="data-target='#modal'+${iter.index}" >
+                                Details
+                            </button>
+                            <a class="card-button btn btn-secondary" th:href="@{/garages/delete/{id}(id = *{id})}">Delete</a>
+                            <a class="card-button btn btn-secondary"
+                               th:href="@{/garages/edit/{id}(id = *{id})}">Edit</a>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div class="modal fade" th:attr="id='modal'+${iter.index}"  role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title" style="text-align: center" th:text="*{name}"></h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <p class="modal-content"><strong>Address: </strong>[[*{address}]]</p>
+                                        <p class="card-text"><strong>Longitude: </strong> [[*{longitude}]]</p>
+                                        <p class="card-text"><strong>Latitude: </strong> [[*{latitude}]]</p>
+                                        <div style="float:none;width:100%;">
+                                            <textarea name="Description" readonly id="" style="width:100%; resize: none;"
+                                                      th:text="*{description}"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#glist').appendClass('active');
+</script>
+    <!--=================================================================================================================-->
+
+<!--<link rel="stylesheet" href="https://maps.google.com/maps/api/js?sensor=false">-->

@@ -1,0 +1,86 @@
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+        padding-top: 20em;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+</style>
+<!--<script src="https://maps.googleapis.com/maps/api/js"></script>-->
+<!--<script src="/jquery/gmaps.js"></script>-->
+<br/>
+<div class="container" id="map-div">
+    <div class="row">
+        <div class="col-md-6">
+
+            <form method="post" th:object="${garageCreateModel}">
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-danger'">
+                    <label for="name">Name:</label>
+                    <input type="text" placeholder="Enter garage name or alias" class="form-control" id="name"
+                           aria-describedby="nameHelp" name="name"
+                           th:field="*{name}"/>
+                    <small id="nameHelp" class="form-control-feedback" th:each="error : ${#fields.errors('name')}"
+                           th:text="${name}">Error Message
+                    </small>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('latitude')}? 'has-danger'">
+                    <label for="latitude">Latitude:</label>
+                    <input type="text" class="form-control" id="latitude" aria-describedby="latHelp" name="latitude"
+                           th:field="*{latitude}"/>
+                    <small id="latHelp" class="form-control-feedback" th:each="error : ${#fields.errors('latitude')}"
+                           th:text="${latitude}">Error Message
+                    </small>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('longitude')}? 'has-danger'">
+                    <label for="longitude">Longitude:</label>
+                    <input type="text" class="form-control" id="longitude" aria-describedby="lngHelp" name="longitude"
+                           th:field="*{longitude}"/>
+                    <small id="lngHelp" class="form-control-feedback" th:each="error : ${#fields.errors('longitude')}"
+                           th:text="${longitude}">Error Message
+                    </small>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('address')}? 'has-danger'">
+                    <label for="address">Address: </label>
+                    <input type="text" class="form-control" placeholder="Enter address or select on map" id="address"
+                           aria-describedby="addressHelp" name="address"
+                           th:field="*{address}"/>
+                    <small id="addressHelp" class="form-control-feedback" th:each="error : ${#fields.errors('address')}"
+                           th:text="${address}">Error Message
+                    </small>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('description')}? 'has-danger'">
+                    <label for="description">Description:</label>
+                    <textarea type="text" class="form-control" id="description" aria-describedby="dscHelp" name="description"
+                              th:field="*{description}"></textarea>
+                    <small id="dscHelp" class="form-control-feedback" th:each="error : ${#fields.errors('description')}"
+                           th:text="${description}">Error Message
+                    </small>
+                </div>
+
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="button" class="btn btn-secondary" id="addressBtn" href="#">Search address</button>
+                <button type="submit" class="btn btn-secondary">Add Garage</button>
+            </form>
+        </div>
+        <div id="map" class="col-md-6" style="height: auto">
+
+        </div>
+    </div>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBY8mA1lt-ClIT3GKLyMsuo4QV3wIaTwvY&callback=initMap"></script>
+</div>
+
+
+<!--=================================================================================================================-->
+
+    <!--=================================================================================================================-->
+

@@ -1,6 +1,6 @@
 type = "text/javascript";
 $(function () {
-
+    loadCarsJsonData();
 });
 
 function loadCarsJsonData() {
@@ -14,7 +14,7 @@ function loadCarsJsonData() {
 
 function addUserCarsToDOM(data) {
     let dropDownMenu = $('#dropdown-car-menu').find('.dropdown-menu');
-
+    dropDownMenu.find('.dropdown-ddivider').prevAll('a').remove();
     $.each(JSON.parse(data), function (i, car) {
         let item = ($('<a></a>'));
         item.addClass('dropdown-item');

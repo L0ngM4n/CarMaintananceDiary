@@ -1,6 +1,7 @@
 package com.car.controllers;
 
-import com.car.exceptions.NotFoundException;
+import com.car.exceptions.CarNotFoundException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -16,8 +17,14 @@ public class GlobalExceptionController {
         return "/base-layout";
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler(CarNotFoundException.class)
     public String getNotFound(Model model) {
+        model.addAttribute("view", "/error/not-found");
+        return "/base-layout";
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public String notFound(Model model) {
         model.addAttribute("view", "/error/not-found");
         return "/base-layout";
     }

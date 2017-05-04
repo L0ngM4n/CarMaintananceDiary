@@ -3,7 +3,6 @@ package com.car.areas.cars.controllers;
 import com.car.areas.cars.models.bindinngModels.CarCreateModel;
 import com.car.areas.cars.models.viewModels.CarViewModel;
 import com.car.areas.cars.services.CarService;
-import com.car.areas.user.entities.User;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,13 +27,14 @@ public class CarController {
     @Autowired
     private Gson gson;
 
-    @ModelAttribute("userCars")
-    public Set<CarViewModel> userCars() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        long userId = ((User) principal).getId();
-        Set<CarViewModel> carViewModels = this.carService.getAllCarsByUser(userId);
-        return carViewModels;
-    }
+//    @ModelAttribute("userCars")
+//    public Set<CarViewModel> userCars(HttpSession  httpSession) {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        long userId = ((User) principal).getId();
+//        httpSession.setAttribute("userId", userId);
+//        Set<CarViewModel> carViewModels = this.carService.getAllCarsByUser(userId);
+//        return carViewModels;
+//    }
 
     @ResponseBody
     @GetMapping("user")
@@ -75,7 +75,7 @@ public class CarController {
     }
 
     @PostMapping("add")
-    public String postAddCar(@ModelAttribute CarCreateModel carCreateModel) {
+    public String addCarPost(@ModelAttribute CarCreateModel carCreateModel) {
         String make = carCreateModel.getMake();
         System.out.println(make == null ? "Empty" : make);
 
@@ -95,10 +95,11 @@ public class CarController {
     }
 
     @GetMapping("{id}")
-    public String getCarDetails(@PathVariable("id") long carId, Model model, HttpSession httpSession) {
+    public String getCarById(@PathVariable("id") long carId, Model model, HttpSession httpSession) {
         CarViewModel carViewModel = this.carService.getById(carId);
         httpSession.setAttribute("activeCar", carViewModel);
         model.addAttribute("car", carViewModel);
+        model.addAttribute("title", carViewModel.getModel());
         model.addAttribute("view", "/fragments/car-repairs");
 
         return "base-layout";

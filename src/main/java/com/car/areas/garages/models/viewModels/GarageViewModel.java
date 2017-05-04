@@ -1,10 +1,6 @@
 package com.car.areas.garages.models.viewModels;
 
-import com.car.areas.repairs.models.viewModels.RepairViewModel;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 30/04/2017
@@ -21,12 +17,12 @@ public class GarageViewModel implements Serializable {
 
     private String latitude;
 
-    private List<RepairViewModel> repairs;
+    private String description;
 
     private long userId;
 
     public GarageViewModel() {
-        this.repairs = new ArrayList<>();
+
     }
 
     public long getId() {
@@ -69,19 +65,19 @@ public class GarageViewModel implements Serializable {
         this.latitude = latitude;
     }
 
-    public List<RepairViewModel> getRepairs() {
-        return repairs;
-    }
-
-    public void setRepairs(List<RepairViewModel> repairs) {
-        this.repairs = repairs;
-    }
-
     public long getUserId() {
         return userId;
     }
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

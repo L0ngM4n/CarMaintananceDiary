@@ -1,12 +1,14 @@
 package com.car.areas.garages.servicesImpl;
 
 import com.car.areas.garages.entities.Garage;
+import com.car.areas.garages.models.GarageEditModel;
 import com.car.areas.garages.models.bindinngModels.GarageCreateModel;
 import com.car.areas.garages.models.viewModels.GarageViewModel;
 import com.car.areas.garages.repositories.GarageRepository;
 import com.car.areas.garages.services.GarageService;
 import com.car.areas.user.entities.BasicUser;
 import com.car.areas.user.repositories.BasicUserRepository;
+import com.car.exceptions.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,4 +61,26 @@ public class GarageServiceImpl implements GarageService {
 
         return this.modelMapper.map(garage, GarageViewModel.class);
     }
+
+    @Override
+    public void delete(long id) {
+        this.garageRepository.delete(id);
+    }
+
+    @Override
+    public void update(GarageEditModel garageModel) {
+        Garage garage = this.garageRepository.findOne(garageModel.getId());
+        if (garage == null){
+            throw new EntityNotFoundException();
+        }
+        garage.setAddress(garageModel.getAddress());
+        garage.setDescription(garageModel.getDescription());
+        garage.setLatitude(garageModel.getLatitude());
+        garage.setLongitude(garageModel.getLongitude());
+
+        this.garageRepository.save(garage);
+
+    }
+
+
 }
