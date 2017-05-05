@@ -22,7 +22,7 @@ $(document).ready(function () {
         data[tokenName] = $("#csrfToken").attr("value");
         data['partId'] = this.id;
         $.ajax({
-            url: '/repairs/part/delete/',
+            url: '/repairs/delete/'+ this.id,
             type: 'POST',
             data: data,
             success: function (result) {

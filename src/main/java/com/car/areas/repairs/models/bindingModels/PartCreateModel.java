@@ -13,7 +13,7 @@ public class PartCreateModel {
     @NotEmpty(message = "Supply part name")
     private String name;
 
-    @Min(value = 1, message = "Price can not be negative")
+    @Min(value = 1, message = "Price can not be negative or zero")
     private double price;
 
     @NotEmpty(message = "Supplier Can not be empty")

@@ -31,42 +31,45 @@ $('#categoriesUnorderedList').empty();
     <div class="row">
         <div class="col-md-6">
 
-            <form method="post" th:object="${garageModel}">
+            <form method="post" th:object="${garageEditModel}">
 
                 <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-danger'">
                     <label for="name">Name:</label>
-                    <input type="text" placeholder="Enter garage name or alias" class="form-control" id="name"
+                    <input type="text" pattern=".{5,}" required title="Min 5 characters required" placeholder="Enter garage name or alias" class="form-control" id="name"
                            aria-describedby="nameHelp" name="name"
-                           th:field="*{name}" th:value="*{name}"/>
-                    <small id="nameHelp" class="form-control-feedback" th:each="error : ${#fields.errors('name')}"
-                           th:text="${name}">Error Message
-                    </small>
+                           th:field="*{name}"/>
+                    <div th:each="error : ${#fields.errors('name')}">
+
+                        <small id="nameHelp" class="form-control-feedback"
+                               th:text="${error}">Error Message
+                        </small>
+                    </div>
                 </div>
 
                 <div class="form-group" th:classappend="${#fields.hasErrors('latitude')}? 'has-danger'">
                     <label for="latitude">Latitude:</label>
-                    <input type="text" class="form-control" id="latitude" aria-describedby="latHelp" name="latitude"
+                    <input type="text" required class="form-control" id="latitude" aria-describedby="latHelp" name="latitude"
                            th:field="*{latitude}" th:value="*{latitude}"/>
                     <small id="latHelp" class="form-control-feedback" th:each="error : ${#fields.errors('latitude')}"
-                           th:text="${latitude}">Error Message
+                           th:text="${error}">Error Message
                     </small>
                 </div>
 
                 <div class="form-group" th:classappend="${#fields.hasErrors('longitude')}? 'has-danger'">
                     <label for="longitude">Longitude:</label>
-                    <input type="text" class="form-control" id="longitude" aria-describedby="lngHelp" name="longitude"
+                    <input type="text" required class="form-control" id="longitude" aria-describedby="lngHelp" name="longitude"
                            th:field="*{longitude}" th:value="*{longitude}"/>
                     <small id="lngHelp" class="form-control-feedback" th:each="error : ${#fields.errors('longitude')}"
-                           th:text="${longitude}">Error Message
+                           th:text="${error}">Error Message
                     </small>
                 </div>
                 <div class="form-group" th:classappend="${#fields.hasErrors('address')}? 'has-danger'">
                     <label for="address">Address: </label>
-                    <input type="text" class="form-control" placeholder="Enter address or select on map" id="address"
+                    <input type="text" required class="form-control" placeholder="Enter address or select on map" id="address"
                            aria-describedby="addressHelp" name="address"
                            th:field="*{address}" th:value="*{address}"/>
                     <small id="addressHelp" class="form-control-feedback" th:each="error : ${#fields.errors('address')}"
-                           th:text="${address}">Error Message
+                           th:text="${error}">Error Message
                     </small>
                 </div>
 
@@ -75,7 +78,7 @@ $('#categoriesUnorderedList').empty();
                     <textarea type="text" class="form-control" id="description" aria-describedby="dscHelp" name="description"
                               th:field="*{description}" th:value="*{description}"></textarea>
                     <small id="dscHelp" class="form-control-feedback" th:each="error : ${#fields.errors('description')}"
-                           th:text="${description}">Error Message
+                           th:text="${error}">Error Message
                     </small>
                 </div>
 

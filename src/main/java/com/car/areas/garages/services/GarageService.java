@@ -24,4 +24,6 @@ public interface GarageService {
     void delete(long id);
 
     void update(GarageEditModel garageModel);
+
+    GarageEditModel getOneByIdForEdit(long garageId);
 }

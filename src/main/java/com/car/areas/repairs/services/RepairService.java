@@ -16,4 +16,6 @@ public interface RepairService {
     RepairViewModel getById(long id);
 
     void updateRepairDetails(RepairCreateModel repairCreateModel);
+
+    void deleteRepair(long repairId, long activeCarId);
 }

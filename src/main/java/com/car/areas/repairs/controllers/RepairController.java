@@ -107,10 +107,6 @@ public class RepairController {
         return "redirect:/repairs/" + repairViewModel.getId();//TODO add id to go to the repair and add parts
     }
 
-    @PostMapping("add-part")
-    public void addPart(@ModelAttribute PartCreateModel partCreateModel, @RequestParam("repairId") long repairId) {
-        this.repairService.addPartToRepair(partCreateModel, repairId);
-    }
 
     @GetMapping("edit/{id}")
     public String editPage(Model model,@PathVariable("id") long repairId, @ModelAttribute RepairViewModel repairViewModel, HttpSession httpSession) {
@@ -147,6 +143,24 @@ public class RepairController {
         return "redirect:/repairs/" + repairId;
     }
 
+    @GetMapping("delete/{id}")
+    public String repairDelete(HttpSession httpSession, @PathVariable("id") long repairId) {
+        if (httpSession.getAttribute("activeCar") == null) {
+            return "redirect:/";
+        }
+        long activeCarId = (long) httpSession.getAttribute("activeCarId");
+
+
+        this.repairService.deleteRepair(repairId, activeCarId);
+
+        return "redirect:/cars/"+ activeCarId + "/repairs";
+    }
+
+
+    @PostMapping("add-part")
+    public void addPart(@ModelAttribute PartCreateModel partCreateModel, @RequestParam("repairId") long repairId) {
+        this.repairService.addPartToRepair(partCreateModel, repairId);
+    }
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -154,7 +168,7 @@ public class RepairController {
     public void deletePart (@RequestParam("partId") long partId){
 
         this.partService.delete(partId);
-
+        
     }
 
 }

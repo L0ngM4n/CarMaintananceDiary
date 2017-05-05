@@ -75,7 +75,9 @@ public class GarageServiceImpl implements GarageService {
     @Override
     public GarageViewModel getOneById(long garageId) {
         Garage garage = this.garageRepository.findOne(garageId);
-
+        if (garage == null) {
+            throw new EntityNotFoundException("No such garage");
+        }
         return this.modelMapper.map(garage, GarageViewModel.class);
     }
 
@@ -98,6 +100,15 @@ public class GarageServiceImpl implements GarageService {
 
         this.garageRepository.save(garage);
 
+    }
+
+    @Override
+    public GarageEditModel getOneByIdForEdit(long garageId) {
+        Garage garage = this.garageRepository.findOne(garageId);
+        if (garage == null) {
+            throw new EntityNotFoundException("No such garage");
+        }
+        return this.modelMapper.map(garage, GarageEditModel.class);
     }
 
 

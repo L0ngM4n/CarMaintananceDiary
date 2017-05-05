@@ -8,7 +8,7 @@
         <div class="part">
             <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-danger'">
                 <label for="partNameId">name</label>
-                <input type="text" class="form-control" id="partNameId" aria-describedby="partNameHelp" name="name"
+                <input type="text" pattern=".{5,}" required title="Min 5 characters required"  class="form-control" id="partNameId" aria-describedby="partNameHelp" name="name"
                        th:field="*{name}"/>
                 <small id="partNameHelp" class="form-control-feedback" th:each="error : ${#fields.errors('name')}"
                        th:text="|Invalid Date|">Error Message
@@ -17,7 +17,7 @@
 
             <div class="form-group" th:classappend="${#fields.hasErrors('labourPrice')}? 'has-danger'">
                 <label for="priceId">Labour Price</label>
-                <input type="number" class="form-control" id="priceId" aria-describedby="priceHelp" name="price"
+                <input type="number" min="1" required title="Min 1"  class="form-control" id="priceId" aria-describedby="priceHelp" name="price"
                        th:field="*{price}"/>
                 <small id="priceHelp" class="form-control-feedback" th:each="error : ${#fields.errors('price')}"
                        th:text="|Invalid Date|">Error Message
@@ -26,7 +26,7 @@
 
             <div class="form-group" th:classappend="${#fields.hasErrors('supplier')}? 'has-danger'">
                 <label for="supplierId">Supplier</label>
-                <input type="number" class="form-control" id="supplierId" aria-describedby="supplierHelp" name="supplier"
+                <input type="number" pattern=".{5,}" required title="Supplier Can not be empty"  class="form-control" id="supplierId" aria-describedby="supplierHelp" name="supplier"
                        th:field="*{supplier}"/>
                 <small id="supplierHelp" class="form-control-feedback" th:each="error : ${#fields.errors('supplier')}"
                        th:text="|Invalid Date|">Error Message

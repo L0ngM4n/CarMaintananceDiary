@@ -48,5 +48,6 @@ function addUserCarsToDOM(data) {
             }
         });
     });
+
     $('#selectedCar').text($.cookie('activeCar'));
 }

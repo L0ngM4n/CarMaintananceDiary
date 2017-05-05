@@ -23,12 +23,12 @@
             <th scope="row" ><a th:href="|/repairs/${repair.id}|" th:text="${repair.id}"></a></th>
             <td ><a th:href="|/repairs/${repair.id}|" th:text="${repair.date}"></a></td>
             <!--TODO add link to garage view-->
-            <td th:text="${repair.garage.name}"></td>
+            <td></td>
             <td><a th:href="|/repairs/${repair.id}|"  th:text="${repair.title}"></a></td>
             <td th:text="${repair.getPartsPrice()}"></td>
             <td th:text="${repair.getTotalPrice()}"></td>
             <td><a th:href="|/repairs/edit/${repair.id}|" th:text="Edit"></a></td>
-            <td><a href="#" th:text="Delete"></a></td>
+            <td><a th:href="|/repairs/delete/${repair.id}|" th:text="Delete"></a></td>
         </tr>
 
         </tbody>

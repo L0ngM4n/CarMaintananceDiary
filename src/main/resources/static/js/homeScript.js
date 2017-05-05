@@ -11,7 +11,6 @@ $(function () {
     if ((pathname.match(/car/g)) || (pathname.match(/repair/g)) || (pathname.match(/garages/g))) {
         $('#categoriesUnorderedList').show();
     }
-    garageCategorySwitchActive();
 });
 
 function changeActiveCategory() {
@@ -23,14 +22,14 @@ function changeActiveCategory() {
 
 }
 
-function garageCategorySwitchActive () {
+$(document).ready(function () {
     if (pathname.match(/garages/g)) {
         $('#glist').addClass('active');
 
     } else if (pathname.match('/garages/add'/g)) {
         $('#gadd').addClass('active');
     }
-};
+});
 
 // Format date number to date not used for now
 function formatDate(dateInNumber) {

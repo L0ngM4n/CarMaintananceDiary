@@ -14,9 +14,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -35,13 +38,6 @@ public class GarageController {
     @Autowired
     private CarService carService;
 
-//    @ModelAttribute("userCars")
-//    public Set<CarViewModel> userCars() {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        long userId = ((User) principal).getId();
-//        Set<CarViewModel> carViewModels = this.carService.getAllCarsByUser(userId);
-//        return carViewModels;
-//    }
 
 
     @GetMapping("")
@@ -71,7 +67,13 @@ public class GarageController {
 
 
     @PostMapping("add")
-    public String addGaragesPost(HttpSession httpSession, @ModelAttribute GarageCreateModel garageCreateModel){
+    public String addGaragesPost(HttpSession httpSession, @Valid @ModelAttribute GarageCreateModel garageCreateModel, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("garageCreateModel", garageCreateModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.garageCreateModel", bindingResult);
+            return "redirect:/garages/add";
+        }
+
 
         this.garageService.create(garageCreateModel, (Long) httpSession.getAttribute("userId"));
 
@@ -94,26 +96,35 @@ public class GarageController {
         this.garageService.delete(id);
         return "redirect:/garages";
     }
-
+//=================================================================================================
     @GetMapping("edit/{id}")
-    public String getEdit(@PathVariable("id") long id, @ModelAttribute GarageViewModel garageModel, Model model){
-        garageModel = this.garageService.getOneById(id);
-        model.addAttribute("garageModel", garageModel);
+    public String getEdit(@PathVariable("id") long id, @ModelAttribute GarageEditModel garageEditModel, Model model){
+
+        garageEditModel = this.garageService.getOneByIdForEdit(id);
+        model.addAttribute("garageEditModel", garageEditModel);
         model.addAttribute("view", "/fragments/garage-edit");
         model.addAttribute("title", "Edit");
         return "garages-base-layout";
     }
-
+//==============================Errors are lost after redirect and are 0 when back up
     @PostMapping("edit/{id}")
-    public String postEdit(@PathVariable("id") long id, @ModelAttribute GarageEditModel garageModel){
-        garageModel.setId(id);
-        this.garageService.update(garageModel);
+    public String postEdit(@PathVariable("id") long id, @Valid @ModelAttribute GarageEditModel garageEditModel, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        garageEditModel.setId(id);
+
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("garageEditModel", garageEditModel);
+           redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.garageEditModel", bindingResult);
+            return "redirect:/garages/edit/" + id;
+        }
+
+
+        this.garageService.update(garageEditModel);
 
 
         return "redirect:/garages";
     }
-
-
+//
+//===========================================================================================
 
 
 

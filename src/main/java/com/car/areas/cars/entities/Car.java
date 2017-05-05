@@ -5,6 +5,7 @@ import com.car.areas.user.entities.User;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -81,5 +82,11 @@ public class Car {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void deleteRepair(long repairId) {
+        // must be called before you can call i.remove()
+        // Do something
+        repairs.removeIf(r -> r.getId() == repairId);
     }
 }

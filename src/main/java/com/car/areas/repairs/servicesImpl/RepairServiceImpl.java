@@ -13,6 +13,7 @@ import com.car.areas.repairs.repositories.PartRepository;
 import com.car.areas.repairs.repositories.RepairRepository;
 import com.car.areas.repairs.services.RepairService;
 import com.car.exceptions.EntityNotFoundException;
+import com.car.exceptions.NoAccessException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,8 @@ public class RepairServiceImpl implements RepairService {
 
         Car car = this.carsRepository.findOne(repairCreateModel.getCar());
         repair.setCar(car);
-        //TODO set Car id
+        Garage garage = this.garageRepository.findOneByName(repairCreateModel.getGarage());
+        repair.setGarage(garage);
         car.getRepairs().add(repair);
         repair = this.repairRepository.save(repair);
         return this.modelMapper.map(repair, RepairViewModel.class);
@@ -81,5 +83,17 @@ public class RepairServiceImpl implements RepairService {
         modelMapper.map(repairCreateModel, repair);
 
         this.repairRepository.save(repair);
+    }
+
+    @Override
+    public void deleteRepair(long repairId, long activeCarId)  {
+        Repair repair = this.repairRepository.findOne(repairId);
+        if (repair == null || Long.compare(repair.getCar().getId(), activeCarId) != 0) {
+            throw new NoAccessException("Not Allowed");
+        }
+        Car car =this.carsRepository.findOne(activeCarId);
+        car.deleteRepair(repairId);
+        this.carsRepository.save(car);
+        this.repairRepository.delete(repairId);
     }
 }

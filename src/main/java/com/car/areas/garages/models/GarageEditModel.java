@@ -10,17 +10,17 @@ public class GarageEditModel {
 
     private long id;
 
-    @NotEmpty
-    @Length(min = 1)
+    @NotEmpty(message = "Field is required")
+    @Length(min = 5, message = "Min length 5")
     private String name;
 
-    @NotEmpty
+    @NotEmpty(message = "Fill field")
     private String address;
 
-    @NotEmpty
+    @NotEmpty(message = "Fill field")
     private String longitude;
 
-    @NotEmpty
+    @NotEmpty(message = "Fill field")
     private String latitude;
 
     private String description;
