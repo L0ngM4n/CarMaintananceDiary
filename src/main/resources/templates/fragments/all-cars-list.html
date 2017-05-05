@@ -1,0 +1,58 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"/>
+<script th:src="@{/jquery/jquery.min.js}"></script>
+
+
+<div class="container" id="g-list-div">
+    <div class="row">
+        <div class="col-md-11 col-md-offset-1">
+
+            <div class="card-group">
+                <th:block th:if="${#lists.size(cars)} > 0" th:each="car, iter : ${cars}" th:object="${car}">
+
+                    <th:block th:if="${iter.index} % 3 == 0">
+                        <div class="w-100"></div>
+                    </th:block>
+
+                    <div class="card col-4 thumbnail">
+
+                        <img class="card-image-top img-fluid img-thumbnail" sizes="250x250"
+                             src="http://myclassicgarage.com/assets/image_placeholder_low_res.png">
+
+                        <div class="card-block">
+                            <h4 class="card-title" th:text="*{make}"></h4>
+                            <p class="card-text" th:text="*{model}"></p>
+                            <p class="card-text" th:text="*{year}"></p>
+                        </div>
+
+                        <div class="card-footer">
+                            <a class="card-button btn btn-secondary"
+                               th:href="@{/cars/delete/{id}(id = *{id})}">Delete</a>
+                            <a class="card-button btn btn-secondary"
+                               th:href="@{/cars/edit/{id}(id = *{id})}">Edit</a>
+
+                        </div>
+
+                    </div>
+                </th:block>
+            </div>
+            <br/>
+            <nav aria-label="Page navigation example" th:if="!${#lists.isEmpty(garages)}">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" th:classappend="!${garages.hasPrevious()}? 'disabled'">
+                        <a class="page-link"
+                           th:href="${garages.hasPrevious()} ? 'garages?page=' + ${garages.previousPageable().getPageNumber()}">Previous
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, garages.getTotalPages() - 1)}">
+                        <a class="page-link" th:href="|garages?page=${i}|" th:text="${i + 1}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="!${garages.hasNext()}? 'disabled'">
+                        <a class="page-link"
+                           th:href="${garages.hasNext()} ? 'garages?page=' + ${garages.nextPageable().getPageNumber()}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

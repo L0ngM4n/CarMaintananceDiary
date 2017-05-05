@@ -1,4 +1,5 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<script th:src="@{/jquery/jquery.min.js}"></script>
 <style>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
@@ -86,7 +87,9 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXI7O5pwSaShbWViCqohyqsdA2NoxKR9Q&callback=initMap"></script>
 </div>
 
-
+<script>
+    $('#gadd').addClass('active');
+</script>
 <!--=================================================================================================================-->
 
     <!--=================================================================================================================-->

@@ -22,14 +22,15 @@ function changeActiveCategory() {
 
 }
 
-$(document).ready(function () {
-    if (pathname.match(/garages/g)) {
-        $('#glist').addClass('active');
-
-    } else if (pathname.match('/garages/add'/g)) {
-        $('#gadd').addClass('active');
-    }
-});
+// $(document).ready(function () {
+//     var pathname = window.location.pathname;
+//     if (pathname.match(/garages/g)) {
+//         $('#glist').addClass('active');
+//
+//     } else if (pathname.match('/garages/add'/g)) {
+//         $('#gadd').addClass('active');
+//     }
+// });
 
 // Format date number to date not used for now
 function formatDate(dateInNumber) {

@@ -23,6 +23,7 @@ public class RepairCreateModel {
 
     private String description;
 
+    @NotEmpty(message = "You must select a garage")
     private String garage;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

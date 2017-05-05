@@ -3,6 +3,7 @@ package com.car.areas.cars.services;
 import com.car.areas.cars.models.bindinngModels.CarCreateModel;
 import com.car.areas.cars.models.viewModels.CarViewModel;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -26,4 +27,5 @@ public interface CarService {
 
     List<CarViewModel> getAllCarsByUser(long userId);
 
+    void deleteCar(long carId, HttpSession httpSession);
 }

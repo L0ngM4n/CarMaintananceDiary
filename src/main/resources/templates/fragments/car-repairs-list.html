@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+      <!--xmlns:th="http://www.thymeleaf.org"-->
+      <!--xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
 
 <div th:fragment="car-repairs">
 
@@ -23,7 +23,7 @@
             <th scope="row" ><a th:href="|/repairs/${repair.id}|" th:text="${repair.id}"></a></th>
             <td ><a th:href="|/repairs/${repair.id}|" th:text="${repair.date}"></a></td>
             <!--TODO add link to garage view-->
-            <td></td>
+            <td th:text="${repair.garage.name}"></td>
             <td><a th:href="|/repairs/${repair.id}|"  th:text="${repair.title}"></a></td>
             <td th:text="${repair.getPartsPrice()}"></td>
             <td th:text="${repair.getTotalPrice()}"></td>

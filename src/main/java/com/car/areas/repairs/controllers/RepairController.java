@@ -165,7 +165,7 @@ public class RepairController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("part/delete")
-    public void deletePart (@RequestParam("partId") long partId){
+    public void deletePart (@PathVariable("partId") long partId){
 
         this.partService.delete(partId);
         

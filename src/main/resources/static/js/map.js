@@ -32,6 +32,7 @@ function initMap() {
             lat: garageLatitude,
             lng: garageLongitude
         };
+
         addMarker(latLng);
     }
     // Adds a marker to the map and push to the array.
@@ -153,7 +154,7 @@ function geolocate() {
             };
 
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent('You are here.');
             infoWindow.open(map);
             map.setCenter(pos);
         }, function () {

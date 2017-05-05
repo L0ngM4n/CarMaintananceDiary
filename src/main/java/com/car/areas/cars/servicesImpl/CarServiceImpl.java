@@ -9,13 +9,12 @@ import com.car.areas.cars.repositories.CarsRepository;
 import com.car.areas.cars.services.CarService;
 import com.car.areas.user.entities.BasicUser;
 import com.car.areas.user.services.BasicUserService;
-import com.car.exceptions.CarNotFoundException;
-import com.car.exceptions.CarsNotFoundException;
-import com.car.exceptions.ModelNotFoundException;
+import com.car.exceptions.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -109,5 +108,19 @@ public class CarServiceImpl implements CarService {
         }
 
         return carViewModels;
+    }
+
+    @Override
+    public void deleteCar(long carId, HttpSession httpSession) {
+        Object userId = httpSession.getAttribute("userId");
+        if (userId == null) {
+            throw new EntityNotFoundException("No such car");
+        }
+        Car car = this.carsRepository.findOne(carId);
+        if (car.getUser().getId() != (long)userId) {
+            throw new NoAccessException("That is not your car");
+        }
+        car.getRepairs().clear();
+        this.carsRepository.delete(carId);
     }
 }
